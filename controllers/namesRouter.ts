@@ -4,6 +4,7 @@ import nameData from '../services/nameData';
 const namesRouter = express.Router();
 
 namesRouter.get('/getnames', (req, res) => {
+  console.log('getting names');
   res.status(200).json(nameData.getNames());
 });
 
