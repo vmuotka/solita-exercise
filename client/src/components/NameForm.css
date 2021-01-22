@@ -8,3 +8,16 @@ form {
 input {
   padding: .5em;
 }
+
+input[type='button'] {
+  cursor: pointer;
+  background-color: red;
+  border-width: 0;
+  color: white;
+  padding: .5em .8em;
+  margin: 0 .5em;
+}
+
+input[type='button']:hover {
+  background-color: darkred
+}

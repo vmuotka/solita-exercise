@@ -58,24 +58,28 @@ const NameTable: React.FC<TableProps> = ({ data }) => {
 
   return (
     <>
-      <table>
-        <thead>
-          <tr>
-            <th onClick={() => sortList('alphabetical')}>Name</th>
-            <th onClick={() => sortList('amount')}>Amount ({getTotalAmount()})</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            list.map((item, i) =>
-              <tr key={i}>
-                <td>{item.name}</td>
-                <td>{item.amount}</td>
+      {
+        list.length > 0 ?
+          <table>
+            <thead>
+              <tr>
+                <th onClick={() => sortList('alphabetical')} title='Sort by name'>Name</th>
+                <th onClick={() => sortList('amount')} title='Sort by amount'>Amount ({getTotalAmount()})</th>
               </tr>
-            )
-          }
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+              {
+                list.map((item, i) =>
+                  <tr key={i}>
+                    <td>{item.name}</td>
+                    <td>{item.amount}</td>
+                  </tr>
+                )
+              }
+            </tbody>
+          </table>
+          : <p style={{ color: 'red', fontSize: '1.4em', }}>No names found...</p>
+      }
     </>
   );
 };
