@@ -2,13 +2,13 @@ import React from 'react';
 import './App.css';
 
 // project components
-import NameTable from './components/NameTable'
+import NameForm from './components/NameForm'
 
 const App: React.FC = () => {
   return (
     <>
       <h1>Solita database</h1>
-      <NameTable />
+      <NameForm />
     </>
   )
 }

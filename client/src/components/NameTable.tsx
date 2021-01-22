@@ -1,36 +1,66 @@
 import React, { useState, useEffect } from 'react';
-import nameService from '../services/nameService'
 import { NamesEntry } from '../types';
 
-const NameTable: React.FC = () => {
+interface TableProps {
+  data: Array<NamesEntry>
+}
+
+type SortType = 'alphabetical' | 'amount';
+
+
+const sortAlphabetically = (a: NamesEntry, b: NamesEntry): number => {
+  if (a.name > b.name)
+    return 1;
+  if (a.name < b.name)
+    return -1;
+
+  return 0;
+};
+
+
+const sortByAmount = (a: NamesEntry, b: NamesEntry): number => {
+  if (a.amount > b.amount)
+    return -1;
+  if (a.amount < b.amount)
+    return 1;
+
+  return 0;
+};
+
+const amountReducer = (a: number, b: NamesEntry): number => {
+  return a + b.amount
+};
+
+const NameTable: React.FC<TableProps> = ({ data }) => {
   const [list, setList] = useState<Array<NamesEntry>>([]);
-  const [query, setQuery] = useState<string>('');
 
+  // when the components data-prop changes, reset the list
   useEffect(() => {
-    nameService.getNames()
-      .then(response => {
-        setList(response.data)
-      });
-  }, []);
+    setList(data);
+  }, [data]);
 
-  const handleSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    nameService.find(query)
-      .then(response => {
-        setList(response.data);
-      });
-  };
+  const sortList = (sortBy: SortType) => {
+    const listCopy = [...list];
+    if (sortBy === 'amount')
+      listCopy.sort(sortByAmount);
+    else
+      listCopy.sort(sortAlphabetically)
+
+    setList(listCopy);
+  }
+
+  const getTotalAmount = () => {
+    return list.reduce(amountReducer, 0);
+  }
+
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input type='query' value={query} onChange={(e) => setQuery(e.target.value)} />
-      </form>
       <table>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Amount</th>
+            <th onClick={() => sortList('alphabetical')}>Name</th>
+            <th onClick={() => sortList('amount')}>Amount ({getTotalAmount()})</th>
           </tr>
         </thead>
         <tbody>
@@ -45,7 +75,7 @@ const NameTable: React.FC = () => {
         </tbody>
       </table>
     </>
-  )
-}
+  );
+};
 
 export default NameTable
