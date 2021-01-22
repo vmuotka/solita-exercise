@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import nameService from '../services/nameService'
 import { NamesEntry } from '../types';
+import './NameForm.css'
 
 import NameTable from './NameTable'
 
@@ -27,7 +28,7 @@ const NameForm: React.FC = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input type='query' value={query} onChange={(e) => setQuery(e.target.value)} />
+        <input type='search' value={query} onChange={(e) => setQuery(e.target.value)} placeholder='type a name...' />
       </form>
       <NameTable data={list} />
     </>
