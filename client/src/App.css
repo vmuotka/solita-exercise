@@ -10,21 +10,6 @@ h1 {
   text-align: center;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th, td {
-  border: 1px solid black;
-  padding: .25em .8em;
-}
-
-th {
-  background-color: #6761A8;
-  color: white;
-}
-
 @media screen and (min-width: 500px) {
   .app {
     margin: 0 4em;

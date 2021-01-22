@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { NamesEntry } from '../types';
 
+import './NameTable.css'
+
 interface TableProps {
   data: Array<NamesEntry>
 }
